@@ -1,0 +1,22 @@
+<div class="flex-container">
+    <div class="flex-sub-container">
+        <form [formGroup]="addeditForm" (ngSubmit)="onSubmit(addeditForm.value)">
+        <mat-form-field appearance="standard" style="margin-left: 1rem;width: 85%;">
+            <input matInput autocomplete="off" placeholder="Enter Tenant Name ..."  formControlName="TenantName"
+            name="TenantName">
+            <mat-error *ngIf="hasError('TenantName', 'required')">Tenant Name is required</mat-error>
+        </mat-form-field>
+
+        <div class="row-container">
+            <div style="margin-left: 0.8rem;">
+                <button mat-raised-button color="primary" [disabled]="!addeditForm.valid">
+                    Submit
+                </button>
+                <button mat-raised-button color="warn" style="margin-left: 1rem;" [routerLink]="['/s-ADM/list-tenant']">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </form>
+    </div>
+</div>

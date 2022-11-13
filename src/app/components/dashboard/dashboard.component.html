@@ -1,0 +1,45 @@
+<app-error-page *ngIf="isDataLoad"></app-error-page>
+<ngx-spinner
+  [name]="spinnerName"
+  [type]="spinnerType"
+  *ngIf="IsLoader"
+></ngx-spinner>
+<div class="flex-container" *ngIf="!isDataLoad && isValid">
+  <div class="flex-row-container">
+    <div class="sub-container-1">
+      <mat-table [dataSource]="dataSource" style="height: 22rem">
+        <ng-container matColumnDef="slno">
+          <mat-header-cell *matHeaderCellDef>Serial No</mat-header-cell>
+          <mat-cell *matCellDef="let element; let i = index">{{
+            i + 1
+          }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="roleName">
+          <mat-header-cell *matHeaderCellDef>Role Name</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element }}</mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true">
+        </mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+    </div>
+    <div class="sub-container-2">
+      <highcharts-chart
+        [Highcharts]="Highcharts"
+        [options]="chartOptions"
+        style="height: 20.5rem; display: block"
+      >
+      </highcharts-chart>
+    </div>
+  </div>
+  <div class="sub-container-3">
+    <highcharts-chart
+      [Highcharts]="Highcharts"
+      [options]="barOptions"
+      style="height: 43rem; display: block"
+    >
+    </highcharts-chart>
+  </div>
+</div>

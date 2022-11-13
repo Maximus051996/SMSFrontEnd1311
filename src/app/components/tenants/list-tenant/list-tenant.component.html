@@ -1,0 +1,95 @@
+<ngx-spinner
+  [name]="spinnerName"
+  [type]="spinnerType"
+  *ngIf="IsLoader"
+></ngx-spinner>
+<app-error-page *ngIf="isDataLoad"></app-error-page>
+<div class="flex-container" *ngIf="!isDataLoad">
+  <div class="flex-sub-container">
+    <div class="row-container">
+      <button mat-mini-fab color="primary" [routerLink]="['/s-ADM/tenant']">
+        <mat-icon>add</mat-icon>
+      </button>
+      <mat-form-field
+        appearance="standard"
+        style="margin-left: 1rem; width: 85%"
+      >
+        <input
+          matInput
+          [(ngModel)]="filterValue"
+          autocomplete="off"
+          placeholder="Quick Search..."
+          (keyup)="applyFilter()"
+        />
+      </mat-form-field>
+    </div>
+    <mat-table [dataSource]="dataSource" matSort style="margin-top: 1rem">
+      <ng-container matColumnDef="tenantName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="TenantName"
+          >Tenant Name</mat-header-cell
+        >
+        <mat-cell *matCellDef="let element">{{ element.TenantName }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="statusLabel">
+        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <span *ngIf="element.IsActive == true">Active</span>
+          <span *ngIf="element.IsActive == false">Not Active</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <span [routerLink]="['/s-ADM/tenant/', element.TenantId]">
+            <mat-icon [inline]="true">border_color</mat-icon>
+          </span>
+          <span
+            [matTooltip]="
+              element.IsActive == true
+                ? 'Do you want To Deactivate?'
+                : 'Do you want To Activate?'
+            "
+          >
+            <mat-icon
+              *ngIf="element.IsActive == true"
+              (click)="
+                enabledisableTenant(element.TenantId, element.TenantName, false)
+              "
+              style="color: red; margin-left: 1rem; font-size: 1.1rem"
+              [inline]="true"
+              >clear</mat-icon
+            >
+            <mat-icon
+              style="color: #20ca20; margin-left: 1rem; font-size: 1.1rem"
+              *ngIf="element.IsActive == false"
+              (click)="
+                enabledisableTenant(element.TenantId, element.TenantName, true)
+              "
+              [inline]="true"
+            >
+              beenhere</mat-icon
+            >
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true">
+      </mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+    <mat-paginator
+      [ngClass]="{
+        hide: !(
+          dataSource != null &&
+          dataSource.data.length != 0 &&
+          dataSource.data.length > 5
+        )
+      }"
+      #paginator
+      [pageSize]="5"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<ngx-spinner
+  [name]="spinnerName"
+  [type]="spinnerType"
+  *ngIf="IsLoader"
+></ngx-spinner>
+<div class="login-container">
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+      <mat-card class="mat-elevation-z8">
+        <mat-card-header style="background-color: darkmagenta; height: 3rem">
+          <h3 style="color: #fff; margin: auto">Stock Management System</h3>
+        </mat-card-header>
+        <mat-card-subtitle></mat-card-subtitle>
+        <mat-card-content fxLayoutAlign="stretch" fxLayout="column">
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="User Name"
+              autocomplete="off"
+              formControlName="userName"
+              name="userName"
+            />
+            <mat-error *ngIf="hasError('userName', 'required')"
+              >User Name is required</mat-error
+            >
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              [type]="showPassword ? 'text' : 'password'"
+              placeholder="Password"
+              autocomplete="off"
+              formControlName="userPassword"
+              name="userPassword"
+            />
+            <button
+              type="button"
+              mat-icon-button
+              matSuffix
+              (click)="showPassword = !showPassword"
+            >
+              <mat-icon>{{
+                showPassword ? "visibility" : "visibility_off"
+              }}</mat-icon>
+            </button>
+            <mat-error *ngIf="hasError('userPassword', 'required')"
+              >Password is required</mat-error
+            >
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions fxLayoutGap="0.8rem" fxLayout="column">
+          <button
+            mat-raised-button
+            [ngClass]="colorChange()"
+            [disabled]="!loginForm.valid"
+          >
+            Login
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </div>
+</div>

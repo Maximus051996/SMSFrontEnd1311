@@ -1,0 +1,63 @@
+<div class="flex-container">
+  <div class="flex-sub-container">
+    <form [formGroup]="addeditForm" (ngSubmit)="onSubmit(addeditForm.value)">
+      <mat-form-field
+        *ngIf="userId == 0 || userId == null"
+        appearance="standard"
+        style="margin-left: 1rem; width: 85%"
+      >
+        <mat-select
+          formControlName="TenantId"
+          name="TenantId"
+          placeholder="Enter Tenant Name ..."
+        >
+          <mat-option
+            *ngFor="let tenant of tenantList"
+            [value]="tenant.TenantId"
+            >{{ tenant.TenantName }}</mat-option
+          >
+        </mat-select>
+        <mat-error *ngIf="hasError('TenantId', 'required')"
+          >Tenant Name is required</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field
+        appearance="standard"
+        style="margin-left: 1rem; width: 85%; margin-top: 1rem"
+      >
+        <input
+          matInput
+          autocomplete="off"
+          placeholder="Enter Email ..."
+          formControlName="Email"
+          name="Email"
+        />
+        <mat-error *ngIf="hasError('Email', 'required')"
+          >Email required</mat-error
+        >
+        <mat-error *ngIf="hasError('Email', 'email')"
+          >Please give proper Email</mat-error
+        >
+      </mat-form-field>
+      <div class="row-container">
+        <div style="margin-left: 0.8rem">
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="!addeditForm.valid"
+          >
+            Submit
+          </button>
+          <button
+            mat-raised-button
+            color="warn"
+            style="margin-left: 1rem"
+            [routerLink]="['/s-ADM/list-adm-crt']"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,111 @@
+<ngx-spinner
+  [name]="spinnerName"
+  [type]="spinnerType"
+  *ngIf="IsLoader"
+></ngx-spinner>
+<mat-toolbar class="header" color="primary" *ngIf="loggedInUser">
+  <button mat-icon-button (click)="toggleSidenav()">
+    <mat-icon style="vertical-align: baseline !important">menu</mat-icon>
+  </button>
+
+  <span style="margin: 0 0 0.8rem 1rem">{{
+    isMobile ? title : applicationTitle
+  }}</span>
+
+  <span class="spacer"></span>
+
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon style="vertical-align: baseline !important">more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>account_circle</mat-icon>
+      <span>{{ userName }}</span>
+    </button>
+    <button mat-menu-item (click)="onLogout()">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Logout</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>help</mat-icon>
+      <span>Help</span>
+    </button>
+  </mat-menu>
+
+  <mat-divider [vertical]="true"></mat-divider>
+</mat-toolbar>
+<mat-sidenav-container *ngIf="loggedInUser" autosize class="sidebar-container">
+  <mat-sidenav
+    class="sidebar-nav"
+    [opened]="!isMobile"
+    color="primary"
+    #sidenav
+    [mode]="'over'"
+  >
+    <div class="avatar-container">
+      <div>
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+          class="avatar-container"
+          style="
+            border-radius: 50%;
+            width: 4rem;
+            height: 4rem;
+            margin: 1rem 0 0 1rem;
+          "
+        />
+      </div>
+      <div class="avatar-sub-container">
+        <div>
+          <p>{{ userName | titlecase }}</p>
+        </div>
+        <div>
+          <p>{{ tenantName | titlecase }}</p>
+        </div>
+      </div>
+    </div>
+    <ul class="sidenav-nav" *ngIf="userRole == 'SuperAdmin'">
+      <li class="sidenav-nav-item" *ngFor="let data of navDataPriroty1">
+        <a
+          class="sidenav-link"
+          [routerLink]="[data.routeLink]"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <div class="sidenav-link-icon">
+            <mat-icon [inline]="true" style="margin-top: 0.3rem">{{
+              data.icon
+            }}</mat-icon>
+          </div>
+          <span class="sidenav-link-text">{{ data.label }}</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="sidenav-nav" *ngIf="userRole == 'Admin'">
+      <li class="sidenav-nav-item" *ngFor="let data of navDataPriroty2">
+        <a
+          class="sidenav-link"
+          [routerLink]="[data.routeLink]"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <div class="sidenav-link-icon">
+            <mat-icon [inline]="true" style="margin-top: 0.3rem">{{
+              data.icon
+            }}</mat-icon>
+          </div>
+          <span class="sidenav-link-text">{{ data.label }}</span>
+        </a>
+      </li>
+    </ul>
+  </mat-sidenav>
+
+  <mat-sidenav-content fxLayout="column">
+    <div class="container" fxFlex>
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<div *ngIf="!loggedInUser">
+  <app-login></app-login>
+</div>

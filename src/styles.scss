@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.btn-enabled {
+    background: rgba(55, 14, 66, 0.892);
+    color: #fff;
+}
+
+.btn-disabled {
+    background: #e9e5ec !important;
+}
+
+.spacer {
+    flex: 1 1 auto;
+  }
+
+  .container {
+    min-height: 100%;
+    width: 100%;
+    .mat-toolbar{
+      font-weight: normal;
+      font-size: 14px;
+      .mat-form-field{
+        width: auto;
+      }
+    }
+  }
+
+  .kpi {
+    text-align: center;
+    .mat-card-header-text {
+      margin: 0 auto;
+    }
+  }

@@ -1,0 +1,77 @@
+.flex-container {
+
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.mat-header-row {
+    background: gainsboro;
+    border-radius: 0.2rem;
+    min-height: 2rem !important;
+}
+
+::ng-deep.mat-row {
+    min-height: 2rem !important;
+    border-radius: 0.5rem;
+}
+
+.mat-row:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.flex-row-container {
+    flex-direction: row;
+    width: 48.6%;
+    margin-left: 0.4rem;
+}
+
+.sub-container-1 {
+    flex-direction: column;
+    margin-top: 0.45rem;
+    overflow-y: auto;
+}
+
+.sub-container-2 {
+    flex-direction: column;
+    margin-top: 0.45rem;
+}
+
+.sub-container-3 {
+    flex-direction: row;
+    width: 50%;
+    margin-top: 0.45rem;
+    margin-right: 0.4rem;
+}
+
+@media (max-width: 850px) {
+    .flex-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .flex-row-container {
+        width: 98%;
+    }
+
+    .sub-container-1 {
+        margin-left: 0.2rem;
+        margin-right: 0.2rem;
+    }
+
+    .sub-container-2 {
+        margin-left: 0.2rem;
+        margin-right: 0.2rem;
+    }
+
+    .sub-container-3 {
+        width: 98%;
+        margin-left: 0.2rem;
+        margin-right: 0.2rem;
+        margin-bottom: 0.2rem;
+    }
+}

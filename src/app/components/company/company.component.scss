@@ -1,0 +1,31 @@
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.flex-sub-container {
+  margin: 1rem;
+  width: 98%;
+}
+.row-container {
+  flex-direction: row;
+  width: 95%;
+}
+.column-container {
+  flex-direction: column;
+  width: 95%;
+}
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 1rem;
+}
+$breakpoint-tablet: 500px;
+
+@media (max-width: $breakpoint-tablet) {
+  .mat-radio-button ~ .mat-radio-button {
+    margin-left: 0;
+  }
+  .upload-btn {
+    margin-top: 1rem;
+  }
+}

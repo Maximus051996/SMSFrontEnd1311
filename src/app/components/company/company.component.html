@@ -1,0 +1,87 @@
+<ngx-spinner
+  [name]="spinnerName"
+  [type]="spinnerType"
+  *ngIf="IsLoader"
+></ngx-spinner>
+<div class="flex-container">
+  <div class="flex-sub-container">
+    <mat-tab-group [(selectedIndex)]="selectedIndex">
+      <mat-tab
+        *ngFor="let tab of [0, 1]; let i = index"
+        label="{{ tab == 0 ? 'Import From Excel' : 'Manually Input' }}"
+      >
+        <div class="row-container" *ngIf="tab == 0">
+          <input
+            type="file"
+            required
+            style="margin-top: 1rem"
+            (change)="handleFileInput($event)"
+          />
+          <button
+            class="upload-btn"
+            (click)="uploadFile()"
+            mat-raised-button
+            color="primary"
+          >
+            Upload
+          </button>
+
+          <mat-error *ngIf="IsValid">Please Choose a File</mat-error>
+        </div>
+
+        <div class="column-container" *ngIf="tab == 1">
+          <form [formGroup]="addeditlistForm">
+            <mat-form-field appearance="standard" style="width: 85%">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="Enter Company Name ..."
+                formControlName="CompanyName"
+                name="CompanyName"
+              />
+              <mat-error *ngIf="hasError('CompanyName', 'required')"
+                >Company Name is required</mat-error
+              >
+            </mat-form-field>
+            <mat-form-field appearance="standard" style="width: 85%">
+              <mat-select
+                formControlName="Priroty"
+                name="Priroty"
+                placeholder="Select Priroty"
+              >
+                <mat-option
+                  *ngFor="let priroty of prirotyList"
+                  [value]="priroty.value"
+                  >{{ priroty.value }}</mat-option
+                >
+              </mat-select>
+              <mat-error *ngIf="hasError('Priroty', 'required')"
+                >Priroty is required</mat-error
+              >
+            </mat-form-field>
+          </form>
+          <div class="row-container">
+            <div>
+              <button
+                mat-raised-button
+                color="primary"
+                [disabled]="!addeditlistForm.valid"
+                (click)="onSubmit()"
+              >
+                Submit
+              </button>
+              <button
+                mat-raised-button
+                color="warn"
+                style="margin-left: 1rem"
+                (click)="navInitialTab()"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

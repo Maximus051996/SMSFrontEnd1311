@@ -1,0 +1,22 @@
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: Column;
+  flex-wrap: wrap;
+  width: 100%;
+  font-size: 5rem;
+  font-family: cursive;
+}
+
+$breakpoint-tablet: 680px;
+
+@media (max-width: $breakpoint-tablet) {
+  .flex-container {
+    display: flex;
+    width: 80%;
+    font-size: 2rem;
+    margin-left: 3rem;
+    gap: 1rem;
+  }
+}

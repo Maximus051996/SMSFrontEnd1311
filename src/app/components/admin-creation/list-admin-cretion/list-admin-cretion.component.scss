@@ -1,0 +1,101 @@
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.flex-sub-container {
+  margin: 1rem;
+  width: 98%;
+}
+
+.row-container {
+  flex-direction: row;
+  width: 95%;
+}
+
+.mat-header-row {
+  background: gainsboro;
+  border-radius: 0.2rem;
+  min-height: 2rem !important;
+}
+
+::ng-deep.mat-row {
+  min-height: 2rem !important;
+  border-radius: 0.5rem;
+}
+
+.mat-row:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+::ng-deep.mat-slide-toggle-bar {
+  position: relative;
+  width: 1.4rem !important;
+  height: 0.8rem !important;
+  flex-shrink: 0;
+  border-radius: 0.5rem !important;
+}
+
+::ng-deep.mat-slide-toggle-thumb {
+  height: 1rem !important;
+  width: 1rem !important;
+  border-radius: 1% !important;
+  display: block;
+}
+
+// ::ng-deep.mat-header-cell:last-of-type {
+//   //margin-left: 6rem;
+// }
+
+// ::ng-deep.mat-cell:last-of-type {
+//   //margin-left: 6rem;
+// }
+
+.hide {
+  display: none;
+}
+
+::ng-deep.mat-paginator-container {
+  min-height: 2rem !important;
+  background: #f1f1f1 !important;
+}
+
+$breakpoint-tablet: 500px;
+
+@media (max-width: $breakpoint-tablet) {
+  ::ng-deep.mat-paginator-icon {
+    width: 0.8rem !important;
+  }
+  .mat-column-userName {
+    margin-left: 1rem !important;
+  }
+
+  ::ng-deep.mat-paginator,
+  .mat-paginator-page-size .mat-select-trigger {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 0.55rem !important;
+  }
+
+  ::ng-deep.mat-cell {
+    font-size: 0.55rem !important;
+  }
+
+  ::ng-deep.mat-header-cell {
+    font-size: 0.55rem !important;
+  }
+
+  .flex-sub-container {
+    font-size: 0.55rem !important;
+  }
+  // .mat-cell-tenantName {
+  //   width: 40%;
+  // }
+  // .mat-cell-userName {
+  //   width: 30%;
+  // }
+  // .mat-cell-actions {
+  //   width: 30%;
+  // }
+}
