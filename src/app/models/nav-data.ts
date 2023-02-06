@@ -2,13 +2,28 @@ export const AdminnavbarData = [
   {
     routeLink: 'ADM/company',
     icon: 'location_city',
-    label: 'Company',
+    label: 'Company Info',
   },
   {
-    routeLink: 'ADM/product',
-    icon: 'storage',
-    label: 'Product',
+    routeLink: 'ADM/spv-info',
+    icon: 'perm_contact_calendar',
+    label: 'SPV Info',
   },
+  // {
+  //   routeLink: 'ADM/product',
+  //   icon: 'storage',
+  //   label: 'Product Info',
+  // },
+  // {
+  //   routeLink: '',
+  //   icon: 'assignment',
+  //   label: 'Bill Info',
+  // },
+  // {
+  //   routeLink: 'ADM/stock-info',
+  //   icon: 'speaker_notes',
+  //   label: 'Stock Info',
+  // },
 ];
 export const SuperAdminnavbarData = [
   {

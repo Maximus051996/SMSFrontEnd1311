@@ -1,6 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ModalDialogComponent } from '../components/dialog/modal-dialog/modal-dialog.component';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +15,8 @@ export class RequestService {
   userUrl = environment.backendUrl + '/Users/';
   uploadUrl = environment.backendUrl + '/Upload/';
   companyUrl = environment.backendUrl + '/Company/';
-  constructor(private http: HttpClient) {}
+  downloadUrl = environment.backendUrl + '/Download/';
+  constructor(private http: HttpClient, public dialog: MatDialog) {}
 
   login(data: any): any {
     return this.http.post<any>(this.loginUrl, data);
@@ -66,8 +70,17 @@ export class RequestService {
     return this.http.post(
       `${
         this.uploadUrl
-      }${'Upload'}?fileType=${type}&tenantName=${tenantName}&userName=${userName}`,
+      }${'UploadExcel'}?fileType=${type}&tenantName=${tenantName}&userName=${userName}`,
       data
+    );
+  }
+
+  downloadfile(data: any): Observable<HttpResponse<Blob>> {
+    return this.http.get<any>(
+      `${this.downloadUrl}${'DownloadExcel?'}${this.createHttpParameters(
+        data
+      ).toString()}`,
+      { observe: 'response', responseType: 'blob' as 'json' }
     );
   }
 
@@ -80,5 +93,46 @@ export class RequestService {
       }`,
       data
     );
+  }
+
+  getallactivecompanyListByTenant(data: any) {
+    return this.http.get<any>(
+      `${this.companyUrl}${'GetAllCompaniesByTenant'}?TenantName=${
+        data.TenantName
+      }&UserName=${data.UserName}`
+    );
+  }
+
+  getcompanyByTenant(data: any) {
+    return this.http.get<any>(
+      `${this.companyUrl}${'GetCompanyByTenant'}?${this.createHttpParameters(
+        data
+      ).toString()}`
+    );
+  }
+
+  deletecompanybyTenant(data: any) {
+    return this.http.post<any>(
+      `${this.companyUrl}${'DeleteCompanyByTenant?'}${this.createHttpParameters(
+        data
+      ).toString()}`,
+      data
+    );
+  }
+
+  createHttpParameters(params: any) {
+    let httpParams = new HttpParams();
+    Object.keys(params).forEach((p) => {
+      if (params[p]) httpParams = httpParams.set(p, params[p]);
+    });
+    return httpParams;
+  }
+
+  openmodalDialog(data: any): void {
+    console.log(data.CompanyName);
+    const dialogRef = this.dialog.open(ModalDialogComponent, {
+      data: { result: data, module: 'company' },
+    });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 }

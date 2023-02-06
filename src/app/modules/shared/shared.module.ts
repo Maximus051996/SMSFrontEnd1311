@@ -24,6 +24,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { MatSortModule } from '@angular/material/sort';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [],
@@ -54,6 +55,7 @@ import { MatRadioModule } from '@angular/material/radio';
     HighchartsChartModule,
     MatSortModule,
     MatRadioModule,
+    MatAutocompleteModule,
   ],
 })
 export class SharedModule {}

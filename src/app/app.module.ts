@@ -16,6 +16,9 @@ import { ListAdminCretionComponent } from './components/admin-creation/list-admi
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CompanyComponent } from './components/company/company.component';
 import { ProductComponent } from './components/product/product.component';
+import { SpvInfoComponent } from './components/spv-info/spv-info.component';
+import { StockInfoComponent } from './components/stock-info/stock-info.component';
+import { ModalDialogComponent } from './components/dialog/modal-dialog/modal-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +31,9 @@ import { ProductComponent } from './components/product/product.component';
     ListAdminCretionComponent,
     CompanyComponent,
     ProductComponent,
+    SpvInfoComponent,
+    StockInfoComponent,
+    ModalDialogComponent,
   ],
   imports: [
     BrowserModule,

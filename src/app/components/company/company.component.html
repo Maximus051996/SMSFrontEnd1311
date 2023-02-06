@@ -3,30 +3,119 @@
   [type]="spinnerType"
   *ngIf="IsLoader"
 ></ngx-spinner>
-<div class="flex-container">
+<app-error-page *ngIf="isDataLoad"></app-error-page>
+<div class="flex-container" *ngIf="!isDataLoad">
   <div class="flex-sub-container">
     <mat-tab-group [(selectedIndex)]="selectedIndex">
       <mat-tab
         *ngFor="let tab of [0, 1]; let i = index"
-        label="{{ tab == 0 ? 'Import From Excel' : 'Manually Input' }}"
+        label="{{
+          tab == 0 ? 'Import From Excel (📑)' : 'Manually Input (🔣)'
+        }}"
       >
         <div class="row-container" *ngIf="tab == 0">
-          <input
-            type="file"
-            required
-            style="margin-top: 1rem"
-            (change)="handleFileInput($event)"
-          />
-          <button
-            class="upload-btn"
-            (click)="uploadFile()"
-            mat-raised-button
-            color="primary"
-          >
-            Upload
-          </button>
+          <div style="margin-top: 1rem">
+            <input type="file" required (change)="handleFileInput($event)" />
+            <button
+              class="upload-btn"
+              (click)="uploadFile()"
+              mat-raised-button
+              color="primary"
+            >
+              Upload 📁
+            </button>
+            <button
+              mat-raised-button
+              color="accent"
+              style="margin-left: 0.4rem"
+              (click)="dowloadExcel()"
+            >
+              Download <mat-icon [inline]="true">cloud_download</mat-icon>
+            </button>
+            <mat-error *ngIf="IsValid">Please Choose a File</mat-error>
+          </div>
+          <div>
+            <mat-form-field
+              appearance="standard"
+              style="width: 85%; margin-top: 0.8rem"
+            >
+              <input
+                matInput
+                [(ngModel)]="filterValue"
+                (keyup)="applyFilter()"
+                autocomplete="off"
+                placeholder="Quick Search (🔍)"
+              />
+            </mat-form-field>
 
-          <mat-error *ngIf="IsValid">Please Choose a File</mat-error>
+            <mat-table
+              [dataSource]="dataSource"
+              matSort
+              style="margin-top: 1rem"
+            >
+              <ng-container matColumnDef="companyName">
+                <mat-header-cell *matHeaderCellDef mat-sort-header="companyName"
+                  >Company Name</mat-header-cell
+                >
+                <mat-cell *matCellDef="let element"
+                  >{{ element.CompanyName }}
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="priroty">
+                <mat-header-cell *matHeaderCellDef>Priroty</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <span *ngIf="element.Priroty == 'High'">🟥 </span>
+                  <span *ngIf="element.Priroty == 'Medium'">🟨</span>
+                  <span *ngIf="element.Priroty == 'Low'">🟦</span>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+                <mat-cell
+                  *matCellDef="let element"
+                  style="justify-content: flex-start"
+                >
+                  <mat-icon
+                    style="font-size: 1.4em"
+                    (click)="viewCompany(element.CompanyId)"
+                  >
+                    view_list</mat-icon
+                  >
+                  <mat-icon
+                    style="margin-left: 0.8rem; font-size: 1.4em"
+                    (click)="deleteCompany(element.CompanyId)"
+                    >delete</mat-icon
+                  ></mat-cell
+                >
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true">
+              </mat-header-row>
+              <mat-row
+                *matRowDef="let row; columns: displayedColumns"
+              ></mat-row>
+            </mat-table>
+            <mat-paginator
+              [ngClass]="{
+                hide: !(
+                  dataSource != null &&
+                  dataSource.data.length != 0 &&
+                  dataSource.data.length > 5
+                )
+              }"
+              #paginator
+              [pageSize]="5"
+              showFirstLastButtons
+            ></mat-paginator>
+            <div
+              *ngIf="!isDataLoad && this.dataSource != null"
+              style="margin-left: 0.8rem; margin-top: 0.8rem"
+            >
+              🟥 - High 🟨 - Medium 🟦 - Low
+            </div>
+          </div>
         </div>
 
         <div class="column-container" *ngIf="tab == 1">

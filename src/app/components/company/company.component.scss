@@ -6,7 +6,7 @@
 }
 .flex-sub-container {
   margin: 1rem;
-  width: 98%;
+  width: 97%;
 }
 .row-container {
   flex-direction: row;
@@ -19,6 +19,54 @@
 .mat-radio-button ~ .mat-radio-button {
   margin-left: 1rem;
 }
+
+.mat-header-row {
+  background: gainsboro;
+  border-radius: 0.2rem;
+  min-height: 2rem !important;
+}
+
+::ng-deep.mat-row {
+  min-height: 2rem !important;
+  border-radius: 0.5rem;
+}
+
+.mat-row:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+::ng-deep.mat-slide-toggle-bar {
+  position: relative;
+  width: 1.4rem !important;
+  height: 0.8rem !important;
+  flex-shrink: 0;
+  border-radius: 0.5rem !important;
+}
+
+::ng-deep.mat-slide-toggle-thumb {
+  height: 1rem !important;
+  width: 1rem !important;
+  border-radius: 1% !important;
+  display: block;
+}
+
+::ng-deep.mat-header-cell:last-of-type {
+  margin-left: 6rem;
+}
+
+::ng-deep.mat-cell:last-of-type {
+  margin-left: 5rem;
+}
+
+.hide {
+  display: none;
+}
+
+::ng-deep.mat-paginator-container {
+  min-height: 2rem !important;
+  background: #f1f1f1 !important;
+}
+
 $breakpoint-tablet: 500px;
 
 @media (max-width: $breakpoint-tablet) {
@@ -27,5 +75,26 @@ $breakpoint-tablet: 500px;
   }
   .upload-btn {
     margin-top: 1rem;
+  }
+  ::ng-deep.mat-paginator-icon {
+    width: 0.8rem !important;
+  }
+
+  ::ng-deep.mat-paginator,
+  .mat-paginator-page-size .mat-select-trigger {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 0.55rem !important;
+  }
+
+  ::ng-deep.mat-cell {
+    font-size: 0.55rem !important;
+  }
+
+  ::ng-deep.mat-header-cell {
+    font-size: 0.55rem !important;
+  }
+
+  .flex-sub-container {
+    font-size: 0.55rem !important;
   }
 }

@@ -67,6 +67,7 @@ export class AdminCreationComponent implements OnInit {
       RoleName: 'Admin',
       UserPassword: value.Email.split('@')[0] + '@54321',
       Email: value.Email,
+      Operation: this.userId > 0 ? 'Update' : 'Insert',
     };
     this.requestService.insertupdateUser(userObj).subscribe(
       (res: any) => {
